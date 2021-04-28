@@ -10,7 +10,10 @@ class SettingsScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Version'),
+        Text(
+          'Version',
+          style: TextStyle(fontSize: 20),
+        ),
         DropdownButton(
           value: settings.version,
           onChanged: (newValue) => settings.setVersion(newValue.toString()),
@@ -29,7 +32,10 @@ class SettingsScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('Font Size'),
+        Text(
+          'Font Size',
+          style: TextStyle(fontSize: 20),
+        ),
         DropdownButton(
           value: settings.fontSize,
           onChanged: (newValue) => settings.setFontSize(newValue.toString()),
