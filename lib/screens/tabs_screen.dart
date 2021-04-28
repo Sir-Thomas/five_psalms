@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import './psalm_screen.dart';
+import './settings_screen.dart';
 import '../widgets/bottom_nav_bar.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -64,6 +65,13 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pageTitles[_selectedPageIndex]),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(SettingsScreen.routeName),
+          ),
+        ],
       ),
       body: _pages[_selectedPageIndex],
       bottomNavigationBar: BottomNavBar(

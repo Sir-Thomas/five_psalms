@@ -25,7 +25,13 @@ class PsalmData {
 
 class Psalm extends StatefulWidget {
   final int? psalmNumber;
-  Psalm({Key? key, required this.psalmNumber}) : super(key: key);
+  final String version;
+
+  Psalm({
+    Key? key,
+    required this.psalmNumber,
+    required this.version,
+  }) : super(key: key);
 
   @override
   _PsalmState createState() => _PsalmState();
@@ -39,8 +45,8 @@ class _PsalmState extends State<Psalm> {
   }
 
   Future<PsalmData> _fetchPsalmData(int? psalm) async {
-    final response = await http
-        .get(Uri.https('getbible.net', 'json', {'p': 'ps$psalm', 'v': 'web'}));
+    final response = await http.get(Uri.https(
+        'getbible.net', 'json', {'p': 'ps$psalm', 'v': widget.version}));
 
     var _validResponse = response.statusCode == 200;
 
