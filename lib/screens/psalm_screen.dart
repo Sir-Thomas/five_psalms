@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../widgets/psalm.dart';
 
 class PsalmScreen extends StatelessWidget {
-  final int psalm;
+  final int psalmNumber;
 
-  PsalmScreen(this.psalm, {Key? key}) : super(key: key);
+  PsalmScreen({required this.psalmNumber, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class PsalmScreen extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(15),
         child: Psalm(
-          psalm: psalm,
+          psalmNumber: psalmNumber,
         ),
       ),
     );

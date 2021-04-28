@@ -4,25 +4,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<PsalmData> fetchPsalmData(int? psalm) async {
-  final response = await http
-      .get(Uri.https('getbible.net', 'json', {'p': 'ps$psalm', 'v': 'web'}));
-
-  if (response.statusCode == 200) {
-    return PsalmData.fromJson(
-        jsonDecode(response.body.substring(1, response.body.length - 2)));
-  } else {
-    throw Exception('Failed to load psalm');
-  }
-}
-
 class PsalmData {
   final Map<String, dynamic>? psalmJson;
 
-  PsalmData({required this.psalmJson});
+  PsalmData(this.psalmJson);
 
   factory PsalmData.fromJson(Map<String, dynamic> json) {
-    return PsalmData(psalmJson: json['chapter']);
+    return PsalmData(json['chapter']);
   }
 
   String showPsalm() {
@@ -36,8 +24,8 @@ class PsalmData {
 }
 
 class Psalm extends StatefulWidget {
-  final int? psalm;
-  Psalm({Key? key, this.psalm}) : super(key: key);
+  final int? psalmNumber;
+  Psalm({Key? key, required this.psalmNumber}) : super(key: key);
 
   @override
   _PsalmState createState() => _PsalmState();
@@ -46,10 +34,27 @@ class Psalm extends StatefulWidget {
 class _PsalmState extends State<Psalm> {
   Future<PsalmData>? futurePsalm;
 
+  String _removeExtraSymbols(String s) {
+    return s.substring(1, s.length - 2);
+  }
+
+  Future<PsalmData> _fetchPsalmData(int? psalm) async {
+    final response = await http
+        .get(Uri.https('getbible.net', 'json', {'p': 'ps$psalm', 'v': 'web'}));
+
+    var _validResponse = response.statusCode == 200;
+
+    if (_validResponse) {
+      return PsalmData.fromJson(jsonDecode(_removeExtraSymbols(response.body)));
+    } else {
+      throw Exception('Failed to load psalm');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    futurePsalm = fetchPsalmData(widget.psalm);
+    futurePsalm = _fetchPsalmData(widget.psalmNumber);
   }
 
   @override
