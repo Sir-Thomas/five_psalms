@@ -2,7 +2,7 @@
     package="com.example.five_psalms">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="five_psalms"
+        android:label="Five Psalms"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
