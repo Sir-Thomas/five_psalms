@@ -5,7 +5,7 @@ import '../widgets/psalm.dart';
 class PsalmScreen extends StatelessWidget {
   final int psalm;
 
-  PsalmScreen(this.psalm, {Key key}) : super(key: key);
+  PsalmScreen(this.psalm, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
