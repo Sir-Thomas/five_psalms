@@ -15,12 +15,14 @@ class PsalmScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = Provider.of<Settings>(context);
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(15),
-        child: Psalm(
-          psalmNumber: psalmNumber,
-          version: settings.version,
+    return Scrollbar(
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(15),
+          child: Psalm(
+            psalmNumber: psalmNumber,
+            version: settings.version,
+          ),
         ),
       ),
     );

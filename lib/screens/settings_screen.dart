@@ -17,12 +17,12 @@ class SettingsScreen extends StatelessWidget {
         DropdownButton(
           value: settings.version,
           onChanged: (newValue) => settings.setVersion(newValue.toString()),
-          items: settings.versions.map<DropdownMenuItem<String>>((value) {
-            return DropdownMenuItem<String>(
-              child: Text(value),
-              value: value,
-            );
-          }).toList(),
+          items: settings.versions
+              .map<DropdownMenuItem<String>>((value) => DropdownMenuItem(
+                    child: Text(value[0]),
+                    value: value[1],
+                  ))
+              .toList(),
         ),
       ],
     );
@@ -41,7 +41,10 @@ class SettingsScreen extends StatelessWidget {
           onChanged: (newValue) => settings.setFontSize(newValue.toString()),
           items: settings.fontSizes.map<DropdownMenuItem<double>>((value) {
             return DropdownMenuItem<double>(
-              child: Text(value.toString()),
+              child: Text(
+                'Aa',
+                style: TextStyle(fontSize: value),
+              ),
               value: value,
             );
           }).toList(),

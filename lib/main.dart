@@ -28,15 +28,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = Provider.of<Settings>(context);
     return MaterialApp(
       title: 'Five Psalms',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor: Colors.orangeAccent,
-        textTheme: TextTheme(
-          bodyText2: TextStyle(fontSize: settings.fontSize),
-        ),
       ),
       routes: {
         '/': (ctx) => TabsScreen(),

@@ -3,6 +3,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+import '../providers/settings.dart';
 
 class PsalmData {
   final Map<String, dynamic>? psalmJson;
@@ -13,13 +16,45 @@ class PsalmData {
     return PsalmData(json['chapter']);
   }
 
-  String showPsalm() {
-    String psalm = '';
+  Widget formatVerse(BuildContext context, int verse, String text) {
+    final settings = Provider.of<Settings>(context);
+    String output = ' ';
+    output += text.trim();
+    output += '\n';
+    return RichText(
+      text: TextSpan(
+        children: [
+          WidgetSpan(
+            child: Transform.translate(
+              offset: Offset(0, -4),
+              child: Text(
+                verse.toString(),
+                textScaleFactor: 0.7,
+                style: TextStyle(fontSize: settings.fontSize),
+              ),
+            ),
+          ),
+          TextSpan(
+            text: output,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: settings.fontSize,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget showPsalm(BuildContext context) {
+    List<Widget> psalm = [];
     psalmJson!.forEach((key, value) {
-      psalm += value['verse'].trim();
-      psalm += '\n';
+      psalm.add(formatVerse(context, value['verse_nr'], value['verse']));
     });
-    return psalm;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: psalm,
+    );
   }
 }
 
@@ -69,7 +104,7 @@ class _PsalmState extends State<Psalm> {
       future: futurePsalm,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Text(snapshot.data!.showPsalm());
+          return snapshot.data!.showPsalm(context);
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }

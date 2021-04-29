@@ -1,15 +1,18 @@
 import 'package:flutter/foundation.dart';
 
 class Settings with ChangeNotifier {
-  final List<String> versions = [
-    'web',
-    'asv',
-    'kjv',
-    'ylt',
+  final List<List<String>> versions = [
+    ['WEB', 'web'],
+    ['ASV', 'asv'],
+    ['KJV', 'kjv'],
   ];
-  final List<double> fontSizes = [18, 20, 22];
+  final List<double> fontSizes = [
+    17.0,
+    20.0,
+    23.0,
+  ];
   String version = 'web';
-  double fontSize = 20;
+  double fontSize = 20.0;
 
   void setFontSize(String? sz) {
     fontSize = double.parse(sz!);
